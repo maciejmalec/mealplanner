@@ -8,11 +8,12 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+    //loads up and displays the fxml file
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("FXML/menu.fxml"));
         primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.setScene(new Scene(root, 1400, 800));
         primaryStage.show();
     }
 
