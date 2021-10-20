@@ -13,7 +13,11 @@
             <font>
                 <Font size="80.0" />
             </font></Label>
-
+        <Label fx:id="backBtn" alignment="CENTER" layoutX="33.0" layoutY="34.0" onMouseClicked="#backBtnHandler" prefHeight="60.0" prefWidth="60.0" text="🠔" textAlignment="CENTER">
+            <font>
+                <Font size="41.0" />
+            </font>
+        </Label>
 
         <ImageView fitHeight="600.0" fitWidth="600.0" layoutX="716.0" layoutY="117.0" pickOnBounds="true" preserveRatio="true">
             <Image url="@../Assets/food.png" />
