@@ -5,6 +5,8 @@ package sample.JavaClasses;
  */
 public class DataHandler {
 
+//    private Gson gson = new Gson();
+
     /**
      * Constructor of the DataHandler class
      */
