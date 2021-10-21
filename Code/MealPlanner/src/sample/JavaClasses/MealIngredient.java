@@ -6,14 +6,14 @@ package sample.JavaClasses;
 public class MealIngredient {
 
     private String name;
-    private float amount;
+    private double amount;
 
     /**
      * Constructor of the MealIngredient class
      * @param name of the ingredient
      * @param amount of the ingredient in the meal
      */
-    public MealIngredient(String name, float amount) {
+    public MealIngredient(String name, double amount) {
         this.name = name;
         this.amount = amount;
     }
@@ -22,7 +22,7 @@ public class MealIngredient {
      * Returns the amount of the ingredients in the meal in grams *100
      * @return amount
      */
-    public float getAmount() {
+    public double getAmount() {
         return amount;
     }
 
@@ -32,5 +32,10 @@ public class MealIngredient {
      */
     public String getName() {
         return name;
+    }
+
+    @Override
+    public String toString() {
+        return "name=" + name + ", amount=" + amount;
     }
 }
