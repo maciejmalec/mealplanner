@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -21,50 +23,16 @@
             <Font size="41.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="43.0" layoutY="239.0" prefHeight="55.0" prefWidth="250.0" style="-fx-background-color: #c49556;" text="Day 1">
-         <font>
-            <Font size="35.0" />
-         </font>
-      </Label>
-      <Label alignment="CENTER" layoutX="311.0" layoutY="239.0" prefHeight="55.0" prefWidth="250.0" style="-fx-background-color: #c49556;" text="Day 2">
-         <font>
-            <Font size="35.0" />
-         </font>
-      </Label>
-      <Label alignment="CENTER" layoutX="838.0" layoutY="239.0" prefHeight="55.0" prefWidth="250.0" style="-fx-background-color: #c49556;" text="Day 4">
-         <font>
-            <Font size="35.0" />
-         </font>
-      </Label>
-      <Label alignment="CENTER" layoutX="575.0" layoutY="239.0" prefHeight="55.0" prefWidth="250.0" style="-fx-background-color: #c49556;" text="Day 3">
-         <font>
-            <Font size="35.0" />
-         </font>
-      </Label>
-      <Label alignment="CENTER" layoutX="1102.0" layoutY="239.0" prefHeight="55.0" prefWidth="250.0" style="-fx-background-color: #c49556;" text="Day 5">
-         <font>
-            <Font size="35.0" />
-         </font>
-      </Label>
-      <Label alignment="CENTER" layoutX="43.0" layoutY="345.0" prefHeight="55.0" prefWidth="250.0" style="-fx-background-color: #c49556;" text="B1">
-         <font>
-            <Font size="35.0" />
-         </font>
-      </Label>
-      <Label alignment="CENTER" layoutX="43.0" layoutY="453.0" prefHeight="55.0" prefWidth="250.0" style="-fx-background-color: #c49556;" text="L1">
-         <font>
-            <Font size="35.0" />
-         </font>
-      </Label>
-      <Label alignment="CENTER" layoutX="43.0" layoutY="652.0" prefHeight="55.0" prefWidth="250.0" style="-fx-background-color: #c49556;" text="S1">
-         <font>
-            <Font size="35.0" />
-         </font>
-      </Label>
-      <Label alignment="CENTER" layoutX="43.0" layoutY="558.0" prefHeight="55.0" prefWidth="250.0" style="-fx-background-color: #c49556;" text="D1">
-         <font>
-            <Font size="35.0" />
-         </font>
-      </Label>
+      <TableView fx:id="tableView" fixedCellSize="100.0" layoutX="100.0" layoutY="240.0" prefHeight="496.0" prefWidth="1200.0" style="-fx-background-color: #c49556;">
+        <columns>
+          <TableColumn fx:id="d1Col" editable="false" prefWidth="300.0" sortable="false" text="Breakfast" />
+          <TableColumn fx:id="d2Col" editable="false" prefWidth="300.0" sortable="false" text="Lunch" />
+            <TableColumn fx:id="d3Col" editable="false" prefWidth="300.0" sortable="false" text="Dinner" />
+            <TableColumn fx:id="d4Col" editable="false" prefWidth="300.0" sortable="false" text="Supper" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
     </children>
 </AnchorPane>
