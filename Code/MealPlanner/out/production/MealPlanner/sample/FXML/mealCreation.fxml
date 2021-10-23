@@ -28,7 +28,7 @@
             <Font size="20.0" />
          </font>
       </TextField>
-      <ListView fx:id="ingList" layoutX="100.0" layoutY="376.0" prefHeight="374.0" prefWidth="325.0" />
+      <ListView fx:id="ingList" layoutX="100.0" layoutY="376.0" onMouseClicked="#addIng" prefHeight="374.0" prefWidth="325.0" />
       <ListView fx:id="mealList" layoutX="975.0" layoutY="367.0" prefHeight="383.0" prefWidth="325.0" />
       <ListView fx:id="addedIngList" layoutX="531.0" layoutY="300.0" prefHeight="315.0" prefWidth="325.0" />
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="531.0" layoutY="236.0" prefHeight="45.0" prefWidth="325.0" text="Added Ingredients" textAlignment="CENTER">

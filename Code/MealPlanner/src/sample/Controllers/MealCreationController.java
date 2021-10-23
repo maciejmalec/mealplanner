@@ -52,6 +52,7 @@ public class MealCreationController implements Initializable {
 
     private DataHandler dh = new DataHandler();
     private Ingredient[] ingredients;
+    private ArrayList<Ingredient> found;
 
 
     @Override
@@ -65,8 +66,28 @@ public class MealCreationController implements Initializable {
     }
 
     @FXML
-    void ingSearch(ActionEvent event) {
+    void updateIngList(){
+        ingList.getItems().clear();
+        if(ingSearchTxt.getText().length() > 2){
+            found = new ArrayList<>();
+            for(Ingredient ing: ingredients){
+                if(ing.toString().toUpperCase().contains(ingSearchTxt.getText().toUpperCase())){
+                    found.add(ing);
+                }
+            }
 
+            found.sort(new Compare());
+            int counter = 0;
+            while(counter<15 && counter < found.size()){
+                ingList.getItems().add(found.get(counter).toString());
+                counter++;
+            }
+        }
+    }
+
+    @FXML
+    void addIng(){
+        System.out.println(found.get(ingList.getSelectionModel().getSelectedIndex()).toString());
     }
 
     @FXML
@@ -79,24 +100,4 @@ public class MealCreationController implements Initializable {
 
     }
 
-    @FXML
-    void updateIngList(){
-        ingList.getItems().clear();
-        if(ingSearchTxt.getText().length() > 2){
-            ArrayList<Ingredient> found = new ArrayList<>();
-            for(Ingredient ing: ingredients){
-                if(ing.toString().toUpperCase().contains(ingSearchTxt.getText().toUpperCase())){
-                    found.add(ing);
-                }
-            }
-
-            found.sort(new Compare());
-
-
-
-            for(int i=0; i<10; i++){
-                ingList.getItems().add(found.get(i).toString());
-            }
-        }
-    }
 }
