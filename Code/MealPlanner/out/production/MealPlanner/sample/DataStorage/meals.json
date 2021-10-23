@@ -1,1 +1,16 @@
-[{"name": "makaron", "amount": "150.0"},{"name": "pomidory", "amount": "50.0"}]
+[
+  {
+    "name": "Kraft Foods Shake N Bake Original Recipe Coating For Pork Dry",
+    "calories": "377",
+    "protein": "6.1",
+    "carbs": "79.8",
+    "fats": "3.7"
+  },
+  {
+    "name": "George Weston Bakeries Thomas English Muffins",
+    "calories": "232",
+    "protein": "8",
+    "carbs": "46",
+    "fats": "1.8"
+  }
+]

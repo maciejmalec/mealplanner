@@ -9,4 +9,9 @@ public class Ingredient extends Food{
     public Ingredient(String name, float calories, float protein, float carbs, float fats) {
         super(name, calories, protein, carbs, fats);
     }
+
+    @Override
+    public String toString() {
+        return super.getName();
+    }
 }

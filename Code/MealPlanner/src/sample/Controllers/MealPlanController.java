@@ -38,15 +38,15 @@ public class MealPlanController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        d1Col.setCellValueFactory(new PropertyValueFactory<>("breakfasts"));
-        d2Col.setCellValueFactory(new PropertyValueFactory<>("lunches"));
-        d3Col.setCellValueFactory(new PropertyValueFactory<>("dinners"));
-        d4Col.setCellValueFactory(new PropertyValueFactory<>("suppers"));
-
-
-        DataHandler dh = new DataHandler();
-        ObservableList<MealIngredient> meals = FXCollections.observableArrayList(dh.loadData());
-        tableView.setItems(meals);
+//        d1Col.setCellValueFactory(new PropertyValueFactory<>("breakfasts"));
+//        d2Col.setCellValueFactory(new PropertyValueFactory<>("lunches"));
+//        d3Col.setCellValueFactory(new PropertyValueFactory<>("dinners"));
+//        d4Col.setCellValueFactory(new PropertyValueFactory<>("suppers"));
+//
+//
+//        DataHandler dh = new DataHandler();
+//        ObservableList<MealIngredient> meals = FXCollections.observableArrayList(dh.loadData());
+//        tableView.setItems(meals);
     }
 
     public MealPlanController(){

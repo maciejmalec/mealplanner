@@ -22,7 +22,7 @@ public class DataHandler {
 
     //mealIngredient for testing purposes for now
     public void saveMeal(MealIngredient data){
-        MealIngredient[] loadData = loadData();
+        MealIngredient[] loadData = null;
         try (Writer writer = new FileWriter("src/sample/DataStorage/meals.json")) {
             Gson gson = new GsonBuilder().create();
 
@@ -37,12 +37,12 @@ public class DataHandler {
         }
     }
 
-    public MealIngredient[] loadData(){
+    public Meal[] loadData(String name){
 
-        try (JsonReader reader = new JsonReader(new FileReader("src/sample/DataStorage/meals.json"))) {
+        try (JsonReader reader = new JsonReader(new FileReader("src/sample/DataStorage/" + name + ".json"))) {
             Gson gson = new Gson();
 
-            MealIngredient[] data = gson.fromJson(reader, MealIngredient[].class);
+            Meal[] data = gson.fromJson(reader, Meal[].class);
 
             return data;
         }catch(IOException e){
@@ -50,5 +50,19 @@ public class DataHandler {
             return null;
         }
 
+    }
+
+    public Ingredient[] loadIngredients(){
+
+        try (JsonReader reader = new JsonReader(new FileReader("src/sample/DataStorage/data.json"))) {
+            Gson gson = new Gson();
+
+            Ingredient[] data = gson.fromJson(reader, Ingredient[].class);
+
+            return data;
+        }catch(IOException e){
+            System.out.println(e);
+            return null;
+        }
     }
 }
