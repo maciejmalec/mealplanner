@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1400.0" style="-fx-background-color: #ffffcc;" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controllers.MealCreationController">
+<AnchorPane prefHeight="800.0" prefWidth="1400.0" style="-fx-background-color: #ffffcc;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controllers.MealCreationController">
     <children>
         <Label layoutX="117.0" layoutY="48.0" prefHeight="118.0" prefWidth="471.0" text="Meal Planner" textAlignment="CENTER">
             <font>
@@ -28,7 +28,7 @@
             <Font size="20.0" />
          </font>
       </TextField>
-      <ListView fx:id="ingList" layoutX="100.0" layoutY="376.0" onMouseClicked="#addIng" prefHeight="374.0" prefWidth="325.0" />
+      <ListView fx:id="ingList" layoutX="100.0" layoutY="376.0" onMouseClicked="#selectIng" prefHeight="374.0" prefWidth="325.0" />
       <ListView fx:id="mealList" layoutX="975.0" layoutY="367.0" prefHeight="383.0" prefWidth="325.0" />
       <ListView fx:id="addedIngList" layoutX="531.0" layoutY="300.0" prefHeight="315.0" prefWidth="325.0" />
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="531.0" layoutY="236.0" prefHeight="45.0" prefWidth="325.0" text="Added Ingredients" textAlignment="CENTER">
@@ -66,5 +66,24 @@
             <Font size="30.0" />
          </font>
       </Label>
+      <AnchorPane fx:id="addPopup" layoutX="470.0" layoutY="322.0" prefHeight="156.0" prefWidth="448.0" style="-fx-background-color: #fffccc; -fx-border-color: black;">
+         <children>
+            <Label fx:id="ingAmountLbl" alignment="CENTER" layoutX="97.0" layoutY="14.0" text="Amount of the ingredient (g)">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <TextField fx:id="ingAmountText" layoutX="46.0" layoutY="80.0" prefHeight="44.0" prefWidth="145.0" promptText="Amount in g">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </TextField>
+            <Button fx:id="addIngBtn" layoutX="254.0" layoutY="83.0" mnemonicParsing="false" onAction="#addIngBtnHandler" prefHeight="38.0" prefWidth="145.0" style="-fx-background-color: #c49556;" text="Add ">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
     </children>
 </AnchorPane>

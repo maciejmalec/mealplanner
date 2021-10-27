@@ -3,15 +3,10 @@ package sample.Controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import sample.JavaClasses.Compare;
-import sample.JavaClasses.DataHandler;
-import sample.JavaClasses.Ingredient;
-import sample.JavaClasses.Meal;
+import javafx.scene.layout.AnchorPane;
+import sample.JavaClasses.*;
 import sample.Main;
 
 import java.net.URL;
@@ -21,7 +16,7 @@ import java.util.ResourceBundle;
 public class MealCreationController implements Initializable {
 
     @FXML
-    private ListView<?> addedIngList;
+    private ListView<String> addedIngList;
 
     @FXML
     private Label backBtn;
@@ -39,7 +34,7 @@ public class MealCreationController implements Initializable {
     private TextField ingSearchTxt;
 
     @FXML
-    private ListView<?> mealList;
+    private ListView<String> mealList;
 
     @FXML
     private TextField mealNameTxt;
@@ -50,6 +45,18 @@ public class MealCreationController implements Initializable {
     @FXML
     private TextField mealSearchTxt;
 
+    @FXML
+    private AnchorPane addPopup;
+
+    @FXML
+    private Label ingAmountLbl;
+
+    @FXML
+    private TextField ingAmountText;
+
+    @FXML
+    private Button addIngBtn;
+
     private DataHandler dh = new DataHandler();
     private Ingredient[] ingredients;
     private ArrayList<Ingredient> found;
@@ -58,6 +65,7 @@ public class MealCreationController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ingredients = dh.loadIngredients();
+        addPopup.setVisible(false);
     }
 
     @FXML
@@ -86,8 +94,14 @@ public class MealCreationController implements Initializable {
     }
 
     @FXML
-    void addIng(){
-        System.out.println(found.get(ingList.getSelectionModel().getSelectedIndex()).toString());
+    void selectIng(){
+        ingAmountLbl.setText("Amount of " + found.get(ingList.getSelectionModel().getSelectedIndex()).toString() + " in g:");
+        addPopup.setVisible(true);
+    }
+
+    public void addIngBtnHandler(){
+        addedIngList.getItems().add(ingAmountText.getText() + "g " + found.get(ingList.getSelectionModel().getSelectedIndex()).toString());
+        addPopup.setVisible(false);
     }
 
     @FXML
