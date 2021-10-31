@@ -57,9 +57,13 @@ public class MealCreationController implements Initializable {
     @FXML
     private Button addIngBtn;
 
+    @FXML
+    private Button deleteIngBtn;
+
     private DataHandler dh = new DataHandler();
     private Ingredient[] ingredients;
     private ArrayList<Ingredient> found;
+    private ArrayList<MealIngredient> added = new ArrayList<>();
 
 
     @Override
@@ -84,7 +88,7 @@ public class MealCreationController implements Initializable {
                 }
             }
 
-            found.sort(new Compare());
+            found.sort(new AlphabeticSort());
             int counter = 0;
             while(counter<15 && counter < found.size()){
                 ingList.getItems().add(found.get(counter).toString());
@@ -96,11 +100,50 @@ public class MealCreationController implements Initializable {
     @FXML
     void selectIng(){
         ingAmountLbl.setText("Amount of " + found.get(ingList.getSelectionModel().getSelectedIndex()).toString() + " in g:");
+        deleteIngBtn.setVisible(false);
+        addIngBtn.setText("Add");
         addPopup.setVisible(true);
     }
 
     public void addIngBtnHandler(){
-        addedIngList.getItems().add(ingAmountText.getText() + "g " + found.get(ingList.getSelectionModel().getSelectedIndex()).toString());
+        if(ingAmountText.getText().isEmpty() || ingAmountText.getText().matches("^[0-9]{1,2}([,.][0-9]{1,2})?$")){
+            System.out.println("incorrect input");
+            return;
+        }
+        if(addIngBtn.getText() == "Change"){
+            MealIngredient temp = added.get(addedIngList.getSelectionModel().getSelectedIndex());
+            added.remove(addedIngList.getSelectionModel().getSelectedIndex());
+            addedIngList.getItems().remove(addedIngList.getSelectionModel().getSelectedIndex());
+
+            temp.setAmount(Double.parseDouble(ingAmountText.getText()));
+            added.add(temp);
+            addedIngList.getItems().add(temp.getAmount() + "g " + temp.getName());
+        }else{
+            String name = found.get(ingList.getSelectionModel().getSelectedIndex()).toString();
+            double amount = Double.parseDouble(ingAmountText.getText());
+
+            addedIngList.getItems().add(amount + "g " + name);
+            added.add(new MealIngredient(name, amount));
+            System.out.println(added.get(0));
+        }
+        addPopup.setVisible(false);
+    }
+
+    public void editIng(){
+        if(addedIngList.getItems().isEmpty()){
+            System.out.println("empty list");
+        }else{
+            deleteIngBtn.setVisible(true);
+            addIngBtn.setText("Change");
+            addPopup.setVisible(true);
+        }
+    }
+
+    public void deleteIngBtnHandler(){
+        int indexToDelete = addedIngList.getSelectionModel().getSelectedIndex();
+        addedIngList.getItems().remove(indexToDelete);
+        added.remove(indexToDelete);
+        deleteIngBtn.setVisible(false);
         addPopup.setVisible(false);
     }
 
@@ -111,7 +154,7 @@ public class MealCreationController implements Initializable {
 
     @FXML
     void sumbitMeal(ActionEvent event) {
-
+        System.out.println(added);
     }
 
 }

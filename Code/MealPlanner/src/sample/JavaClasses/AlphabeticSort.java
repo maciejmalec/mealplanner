@@ -2,7 +2,7 @@ package sample.JavaClasses;
 
 import java.util.Comparator;
 
-public class Compare implements Comparator<Ingredient> {
+public class AlphabeticSort implements Comparator<Ingredient> {
 
     @Override
     public int compare(Ingredient i1, Ingredient i2) {
