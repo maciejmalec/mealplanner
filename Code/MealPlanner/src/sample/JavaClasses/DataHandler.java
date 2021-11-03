@@ -5,7 +5,6 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 
@@ -14,6 +13,7 @@ import java.util.Arrays;
  */
 public class DataHandler {
 
+    Gson gson;
     /**
      * Constructor of the DataHandler class
      */
@@ -21,32 +21,33 @@ public class DataHandler {
     }
 
     //mealIngredient for testing purposes for now
-    public void saveMeal(MealIngredient data){
-        MealIngredient[] loadData = null;
+    public void saveMeal(Meal meal){
         try (Writer writer = new FileWriter("src/sample/DataStorage/meals.json")) {
-            Gson gson = new GsonBuilder().create();
+            gson = new GsonBuilder().create();
 
             //creates a new array that will hold recorded
-            MealIngredient[] saveData = Arrays.copyOf(loadData, loadData.length+ 1);
-            saveData[saveData.length-1] = data;
+            Meal[] existingMeals = loadMeals();
+
+            Meal[] saveData = Arrays.copyOf(existingMeals, existingMeals.length+ 1);
+            saveData[saveData.length-1] = meal;
 
             gson.toJson(saveData, writer);
 
         }catch(IOException e){
-            System.out.println(e);
+            System.out.println(e.toString());
         }
     }
 
-    public Meal[] loadData(String name){
+    public Meal[] loadMeals(){
 
-        try (JsonReader reader = new JsonReader(new FileReader("src/sample/DataStorage/" + name + ".json"))) {
-            Gson gson = new Gson();
+        try (JsonReader reader = new JsonReader(new FileReader("src/sample/DataStorage/meals.json"))) {
+            gson = new Gson();
 
             Meal[] data = gson.fromJson(reader, Meal[].class);
 
             return data;
         }catch(IOException e){
-            System.out.println(e);
+            System.out.println(e.toString());
             return null;
         }
 
@@ -55,13 +56,13 @@ public class DataHandler {
     public Ingredient[] loadIngredients(){
 
         try (JsonReader reader = new JsonReader(new FileReader("src/sample/DataStorage/data.json"))) {
-            Gson gson = new Gson();
+            gson = new Gson();
 
             Ingredient[] data = gson.fromJson(reader, Ingredient[].class);
 
             return data;
         }catch(IOException e){
-            System.out.println(e);
+            System.out.println(e.toString());
             return null;
         }
     }

@@ -4,7 +4,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import sample.JavaClasses.*;
 import sample.Main;
@@ -17,9 +16,6 @@ public class MealCreationController implements Initializable {
 
     @FXML
     private ListView<String> addedIngList;
-
-    @FXML
-    private Label backBtn;
 
     @FXML
     private Button createMealBtn;
@@ -73,7 +69,7 @@ public class MealCreationController implements Initializable {
     }
 
     @FXML
-    void backBtnHandler(MouseEvent event) {
+    void backBtnHandler() {
         Main.changeScene("menu");
     }
 
@@ -110,10 +106,13 @@ public class MealCreationController implements Initializable {
             System.out.println("incorrect input");
             return;
         }
+
         if(addIngBtn.getText() == "Change"){
-            MealIngredient temp = added.get(addedIngList.getSelectionModel().getSelectedIndex());
-            added.remove(addedIngList.getSelectionModel().getSelectedIndex());
-            addedIngList.getItems().remove(addedIngList.getSelectionModel().getSelectedIndex());
+            int listIndex = addedIngList.getSelectionModel().getSelectedIndex();
+
+            MealIngredient temp = added.get(listIndex);
+            added.remove(listIndex);
+            addedIngList.getItems().remove(listIndex);
 
             temp.setAmount(Double.parseDouble(ingAmountText.getText()));
             added.add(temp);
@@ -148,13 +147,22 @@ public class MealCreationController implements Initializable {
     }
 
     @FXML
-    void mealSearch(ActionEvent event) {
+    void sumbitMeal() {
+        if(ingAmountText.getText().isEmpty()){
+            System.out.println("pick a name for the meal");
+        }else{
+            //create a new meal
+            Meal meal = new Meal()
+            //save the meal
 
+            //testing
+            System.out.println();
+        }
     }
 
     @FXML
-    void sumbitMeal(ActionEvent event) {
-        System.out.println(added);
+    void mealSearch(ActionEvent event) {
+
     }
 
 }
