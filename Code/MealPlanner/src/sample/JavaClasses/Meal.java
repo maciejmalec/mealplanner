@@ -19,20 +19,19 @@ public class Meal {
      */
     public Meal(String name, Ingredient[] ingredients, double[] amounts) {
         this.name = name;
+        this.ingredients = new MealIngredient[ingredients.length];
 
-        ArrayList<MealIngredient> temp = new ArrayList<>();
         for(int i=0; i<amounts.length; i++){
-            temp.add(new MealIngredient(ingredients[i].getName(), amounts[i]));
+            this.ingredients[i] = new MealIngredient(ingredients[i].getName(), amounts[i]);
         }
 
-        this.ingredients = (MealIngredient[]) temp.toArray();
-
-        for(Ingredient ing: ingredients){
-            calories += ing.getCalories();
-            protein += ing.getProtein();
-            carbs += ing.getCarbs();
-            fats += ing.getFats();
+        for(int i=0; i<ingredients.length; i++){
+            calories += ingredients[i].getCalories() * amounts[i]/100;
+            protein += ingredients[i].getProtein() * amounts[i]/100;
+            carbs += ingredients[i].getCarbs() * amounts[i]/100;
+            fats += ingredients[i].getFats() * amounts[i]/100;
         }
+
     }
 
     public String getName() {

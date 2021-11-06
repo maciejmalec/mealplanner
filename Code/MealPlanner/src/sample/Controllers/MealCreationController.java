@@ -59,7 +59,9 @@ public class MealCreationController implements Initializable {
     private DataHandler dh = new DataHandler();
     private Ingredient[] ingredients;
     private ArrayList<Ingredient> found;
-    private ArrayList<MealIngredient> added = new ArrayList<>();
+
+    private ArrayList<Ingredient> added = new ArrayList<>();
+    private ArrayList<Double> amounts = new ArrayList<>();
 
 
     @Override
@@ -79,7 +81,7 @@ public class MealCreationController implements Initializable {
         if(ingSearchTxt.getText().length() > 2){
             found = new ArrayList<>();
             for(Ingredient ing: ingredients){
-                if(ing.toString().toUpperCase().contains(ingSearchTxt.getText().toUpperCase())){
+                if(ing.getName().toUpperCase().contains(ingSearchTxt.getText().toUpperCase())){
                     found.add(ing);
                 }
             }
@@ -87,7 +89,7 @@ public class MealCreationController implements Initializable {
             found.sort(new AlphabeticSort());
             int counter = 0;
             while(counter<15 && counter < found.size()){
-                ingList.getItems().add(found.get(counter).toString());
+                ingList.getItems().add(found.get(counter).getName());
                 counter++;
             }
         }
@@ -95,7 +97,7 @@ public class MealCreationController implements Initializable {
 
     @FXML
     void selectIng(){
-        ingAmountLbl.setText("Amount of " + found.get(ingList.getSelectionModel().getSelectedIndex()).toString() + " in g:");
+        ingAmountLbl.setText("Amount of " + found.get(ingList.getSelectionModel().getSelectedIndex()).getName() + " in g:");
         deleteIngBtn.setVisible(false);
         addIngBtn.setText("Add");
         addPopup.setVisible(true);
@@ -107,23 +109,21 @@ public class MealCreationController implements Initializable {
             return;
         }
 
-        if(addIngBtn.getText() == "Change"){
+        if(addIngBtn.getText().equals("Change")){
             int listIndex = addedIngList.getSelectionModel().getSelectedIndex();
 
-            MealIngredient temp = added.get(listIndex);
-            added.remove(listIndex);
-            addedIngList.getItems().remove(listIndex);
+            amounts.set(listIndex, Double.parseDouble(ingAmountText.getText()));
 
-            temp.setAmount(Double.parseDouble(ingAmountText.getText()));
-            added.add(temp);
-            addedIngList.getItems().add(temp.getAmount() + "g " + temp.getName());
+            String changedText = amounts.get(listIndex).toString() + "g " + added.get(listIndex).getName();
+            addedIngList.getItems().set(listIndex, changedText);
         }else{
-            String name = found.get(ingList.getSelectionModel().getSelectedIndex()).toString();
+            int listIndex = ingList.getSelectionModel().getSelectedIndex();
+            String name = found.get(listIndex).getName();
             double amount = Double.parseDouble(ingAmountText.getText());
 
             addedIngList.getItems().add(amount + "g " + name);
-            added.add(new MealIngredient(name, amount));
-            System.out.println(added.get(0));
+            added.add(found.get(listIndex));
+            amounts.add(amount);
         }
         addPopup.setVisible(false);
     }
@@ -142,21 +142,31 @@ public class MealCreationController implements Initializable {
         int indexToDelete = addedIngList.getSelectionModel().getSelectedIndex();
         addedIngList.getItems().remove(indexToDelete);
         added.remove(indexToDelete);
+        amounts.remove(indexToDelete);
         deleteIngBtn.setVisible(false);
         addPopup.setVisible(false);
     }
 
     @FXML
     void sumbitMeal() {
-        if(ingAmountText.getText().isEmpty()){
+        if(mealNameTxt.getText().isEmpty() || added.isEmpty()){
             System.out.println("pick a name for the meal");
         }else{
             //create a new meal
-            Meal meal = new Meal()
+            double[] tempAmounts = new double[amounts.size()];
+            Ingredient[] tempAdded = new Ingredient[added.size()];
+
+            for(int i=0; i<amounts.size(); i++){
+                tempAmounts[i] = amounts.get(i);
+                tempAdded[i] = added.get(i);
+            }
+
+
+            Meal meal = new Meal(mealNameTxt.getText(), tempAdded, tempAmounts);
             //save the meal
 
             //testing
-            System.out.println();
+            System.out.println(meal.getCalories());
         }
     }
 
