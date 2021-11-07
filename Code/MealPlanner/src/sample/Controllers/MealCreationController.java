@@ -68,6 +68,16 @@ public class MealCreationController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ingredients = dh.loadIngredients();
         addPopup.setVisible(false);
+
+        loadMeals();
+    }
+
+    private void loadMeals(){
+        mealList.getItems().clear();
+        Meal[] meals = dh.loadMeals();
+        for(Meal meal: meals){
+            mealList.getItems().add(meal.getName());
+        }
     }
 
     @FXML
@@ -97,14 +107,18 @@ public class MealCreationController implements Initializable {
 
     @FXML
     void selectIng(){
-        ingAmountLbl.setText("Amount of " + found.get(ingList.getSelectionModel().getSelectedIndex()).getName() + " in g:");
-        deleteIngBtn.setVisible(false);
-        addIngBtn.setText("Add");
-        addPopup.setVisible(true);
+        if(ingList.getItems().isEmpty()){
+            System.out.println("empty list");
+        }else{
+            ingAmountLbl.setText("Amount of " + found.get(ingList.getSelectionModel().getSelectedIndex()).getName() + " in g:");
+            deleteIngBtn.setVisible(false);
+            addIngBtn.setText("Add");
+            addPopup.setVisible(true);
+        }
     }
 
     public void addIngBtnHandler(){
-        if(ingAmountText.getText().isEmpty() || ingAmountText.getText().matches("^[0-9]{1,2}([,.][0-9]{1,2})?$")){
+        if(ingAmountText.getText().isEmpty() || ingAmountText.getText().matches("^[0-9]{1}([,.][0-9]{1})?$")){
             System.out.println("incorrect input");
             return;
         }
@@ -164,9 +178,10 @@ public class MealCreationController implements Initializable {
 
             Meal meal = new Meal(mealNameTxt.getText(), tempAdded, tempAmounts);
             //save the meal
-
+            dh.saveMeal(meal);
+            loadMeals();
             //testing
-            System.out.println(meal.getCalories());
+            //System.out.println(meal.getCalories());
         }
     }
 

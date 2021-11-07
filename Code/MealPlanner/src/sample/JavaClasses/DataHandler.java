@@ -5,6 +5,8 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
 
 import java.io.*;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 
@@ -14,6 +16,7 @@ import java.util.Arrays;
 public class DataHandler {
 
     Gson gson;
+
     /**
      * Constructor of the DataHandler class
      */
@@ -22,17 +25,15 @@ public class DataHandler {
 
     //mealIngredient for testing purposes for now
     public void saveMeal(Meal meal){
+
+        ArrayList<Meal> meals = new ArrayList<>(Arrays.asList(loadMeals()));
+
         try (Writer writer = new FileWriter("src/sample/DataStorage/meals.json")) {
             gson = new GsonBuilder().create();
 
-            //creates a new array that will hold recorded
-            Meal[] existingMeals = loadMeals();
+            meals.add(meal);
 
-            Meal[] saveData = Arrays.copyOf(existingMeals, existingMeals.length+ 1);
-            saveData[saveData.length-1] = meal;
-
-            gson.toJson(saveData, writer);
-
+            gson.toJson(meals, writer);
         }catch(IOException e){
             System.out.println(e.toString());
         }
@@ -40,17 +41,13 @@ public class DataHandler {
 
     public Meal[] loadMeals(){
 
-        try (JsonReader reader = new JsonReader(new FileReader("src/sample/DataStorage/meals.json"))) {
+        try (FileReader fileReader = new FileReader("src/sample/DataStorage/meals.json")) {
             gson = new Gson();
-
-            Meal[] data = gson.fromJson(reader, Meal[].class);
-
-            return data;
+            return gson.fromJson(fileReader, Meal[].class);
         }catch(IOException e){
             System.out.println(e.toString());
             return null;
         }
-
     }
 
     public Ingredient[] loadIngredients(){
@@ -58,9 +55,7 @@ public class DataHandler {
         try (JsonReader reader = new JsonReader(new FileReader("src/sample/DataStorage/data.json"))) {
             gson = new Gson();
 
-            Ingredient[] data = gson.fromJson(reader, Ingredient[].class);
-
-            return data;
+            return gson.fromJson(reader, Ingredient[].class);
         }catch(IOException e){
             System.out.println(e.toString());
             return null;
