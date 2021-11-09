@@ -3,20 +3,22 @@ package sample.JavaClasses;
 public class MealPlan {
 
     private Meal[] breakfasts;
-    private Meal[] lunches;
+    private Meal[] snacks;
     private Meal[] dinners;
     private Meal[] suppers;
 
     public MealPlan() {
-        try{
-            createPlan();
-        }catch (Exception e){
-            System.out.println("not enough meals to create a meal plan");
-        }
+        createPlan();
     }
 
     public void createPlan(){
         //from the loaded meals generate 20 unique meals with 5 of each label
+        DataHandler dh = new DataHandler();
+        Meal[] meals = dh.loadMeals();
+
+        for(int i=0; i<4; i++){
+
+        }
     }
 
     public Meal[] getSuppers() {
@@ -31,7 +33,7 @@ public class MealPlan {
         return breakfasts;
     }
 
-    public Meal[] getLunches() {
-        return lunches;
+    public Meal[] getSnacks() {
+        return snacks;
     }
 }

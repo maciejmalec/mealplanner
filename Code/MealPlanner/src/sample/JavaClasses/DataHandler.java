@@ -61,4 +61,10 @@ public class DataHandler {
             return null;
         }
     }
+
+//    public MealPlan loadMealPlan(){
+//
+//
+//
+//    }
 }

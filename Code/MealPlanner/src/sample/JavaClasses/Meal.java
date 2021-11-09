@@ -13,13 +13,16 @@ public class Meal {
     private double protein;
     private double carbs;
     private double fats;
+    private MealType type;
 
     /**
      * Constructor of the Meal class
      */
-    public Meal(String name, Ingredient[] ingredients, double[] amounts) {
+    public Meal(String name, MealType type, Ingredient[] ingredients, double[] amounts) {
         this.name = name;
         this.ingredients = new MealIngredient[ingredients.length];
+        this.type = type;
+
 
         for(int i=0; i<amounts.length; i++){
             this.ingredients[i] = new MealIngredient(ingredients[i].getName(), amounts[i]);
@@ -52,6 +55,10 @@ public class Meal {
 
     public double getFats() {
         return fats;
+    }
+
+    public MealType getType() {
+        return type;
     }
 
     /**

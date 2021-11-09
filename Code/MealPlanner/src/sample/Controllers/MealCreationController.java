@@ -18,13 +18,7 @@ public class MealCreationController implements Initializable {
     private ListView<String> addedIngList;
 
     @FXML
-    private Button createMealBtn;
-
-    @FXML
     private ListView<String> ingList;
-
-    @FXML
-    private Button ingSearchBtn;
 
     @FXML
     private TextField ingSearchTxt;
@@ -34,6 +28,9 @@ public class MealCreationController implements Initializable {
 
     @FXML
     private TextField mealNameTxt;
+
+    @FXML
+    private ChoiceBox<MealType> typeChoiceBox;
 
     @FXML
     private Button mealSearchBtn;
@@ -70,6 +67,15 @@ public class MealCreationController implements Initializable {
         addPopup.setVisible(false);
 
         loadMeals();
+        setUpCheckBox();
+    }
+
+    private void setUpCheckBox(){
+        typeChoiceBox.getItems().add(MealType.BREAKFAST);
+        typeChoiceBox.getItems().add(MealType.SNACK);
+        typeChoiceBox.getItems().add(MealType.DINNER);
+        typeChoiceBox.getItems().add(MealType.SUPPER);
+        typeChoiceBox.setValue(MealType.BREAKFAST);
     }
 
     private void loadMeals(){
@@ -176,7 +182,7 @@ public class MealCreationController implements Initializable {
             }
 
 
-            Meal meal = new Meal(mealNameTxt.getText(), tempAdded, tempAmounts);
+            Meal meal = new Meal(mealNameTxt.getText(), typeChoiceBox.getValue(), tempAdded, tempAmounts);
             //save the meal
             dh.saveMeal(meal);
             loadMeals();
